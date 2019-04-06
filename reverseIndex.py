@@ -9,13 +9,12 @@ class MRWordFreqCount(MRJob):
     def mapper(self, _, line):
         fileName = os.environ['map_input_file']
         for word in WORD_RE.findall(line):
-            yield word.lower(), 1
+            yield word.lower(), fileName
 
-    def combiner(self, word, counts):
-        yield word, sum(counts)
 
-    def reducer(self, word, counts):
-        yield word, sum(counts)
+    def reducer(self, word, fileNames):
+        unique = list(set(fileNames))
+        yield word, ','.join(unique)
 
 
 if __name__ == '__main__':
