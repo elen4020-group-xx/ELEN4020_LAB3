@@ -1,11 +1,16 @@
 from mrjob.job import MRJob
 from mrjob.step import MRStep
+from reverseIndex import CustomProtocol
 import re
 import os
+import time
+
 WORD_RE = re.compile(r"[\w']+")
 
 
 class MRWordFreqCount(MRJob):
+    #INPUT_PROTOCOL=CustomProtocol
+
 
     def steps(self):
         return [
@@ -16,18 +21,18 @@ class MRWordFreqCount(MRJob):
                     reducer=self.reducer)
         ]
 
-    def mapper_discard_stop(self, _, line):
+    def mapper_discard_stop(self, key, line):
         stopWords=['to','at','the','we','am','in']
         for word in WORD_RE.findall(line):
-            if(word not in stopWords):
-                yield None, word.lower()
+            if(word.lower() not in stopWords):
+                yield key, word.lower()
 
-    def reducer_discard_stop(self, _, words):
-        yield (None,' '.join(words))
+    def reducer_discard_stop(self, key, words):
+        yield (key,' '.join(words))#even though line numbers are not important, this prevents a devolution to a single map in the next step
 
-    def mapper(self, _, line):
+    def mapper(self, _, line):#line no is no longer relevant here
         for word in WORD_RE.findall(line):
-            yield word.lower(), 1
+            yield word,1
 
     def combiner(self, word, counts):
         yield word, sum(counts)
@@ -37,4 +42,6 @@ class MRWordFreqCount(MRJob):
 
 
 if __name__ == '__main__':
+    startTime= time.time() 
     MRWordFreqCount.run()
+    print("Time taken:", time.time()-startTime )
