@@ -3,6 +3,7 @@ from mrjob.step import MRStep
 import re
 import os
 import time
+import heapq
 WORD_RE = re.compile(r"[\w']+")
 
 class CustomProtocol(object):###Custom input protocol class that is used to workaround the lack of direct file access    
@@ -25,7 +26,8 @@ class ReverseIndex(MRJob):
         return [
             MRStep(mapper=self.mapper_discard_stop, reducer=self.reducer_discard_stop),
             MRStep(mapper=self.mapper,
-                    reducer=self.reducer)
+                    reducer=self.reducer),
+            MRStep(reducer=self.topKReducer)
         ]
 
     def mapper_discard_stop(self,key, line):
@@ -47,10 +49,16 @@ class ReverseIndex(MRJob):
     def reducer(self, word, lineNos):
         unique = set(lineNos)
         if(len(unique)>1):
-            outStr=''.join(str(unique))
+            outStr=str(unique)
         else:
             outStr=str(unique)
-        yield word, outStr
+ 
+        yield None, (word,outStr)
+
+    def topKReducer(self, _, word_line_pairs):
+        yield ('Top'+str(50),heapq.nlargest(50, word_line_pairs,key=lambda tup: tup[1].count(',')))
+
+
 
 
 
