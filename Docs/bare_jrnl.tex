@@ -1,0 +1,974 @@
+
+\documentclass[journal,10pt]{IEEEtran}
+\usepackage{graphicx}
+\usepackage{chngpage}
+\usepackage{multirow}
+\newcommand{\subparagraph}{}
+% \usepackage [english]{babel}
+% \usepackage [autostyle, english = american]{csquotes}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{mathtools}
+\usepackage{multicol}
+\usepackage{titlesec}
+\usepackage{gensymb}
+\usepackage[justification=centering]{caption}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{url}
+\usepackage[final]{pdfpages}
+%\usepackage{appendix}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{subfig}
+ \usepackage[
+    backend=biber,
+    style=ieee,
+  ]{biblatex}
+\addbibresource{main.bib}
+\usepackage[margin=0.75in]{geometry} % see geometry.pdf on how to lay out the page. There's lots.
+\geometry{a4paper} % or letter or a5paper or ... etc
+\setlength{\parskip}{0.5
+em}
+
+
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+
+\lstset{language=python,
+breaklines=true,
+commentstyle=\color{mygreen},
+ keywordstyle=\color{blue},
+ stringstyle=\color{mymauve},
+ morecomment=[l]{//}}
+
+
+
+
+
+
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. graphicx.sty is already
+% installed on most LaTeX systems. The latest version and documentation
+% can be obtained at: 
+% http://www.ctan.org/tex-archive/macros/latex/required/graphics/
+% Another good source of documentation is Using Imported Graphics in
+% LaTeX2e by Keith Reckdahl which can be found at:
+% http://www.ctan.org/tex-archive/info/epslatex/
+%
+% latex, and pdflatex in dvi mode, support graphics in encapsulated
+% postscript (.eps) format. pdflatex in pdf mode supports graphics
+% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
+% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
+% not a bitmapped formats (.jpeg, .png). IEEE frowns on bitmapped formats
+% which can result in jaggedy/blurry rendering of lines and letters as
+% well as large increases in file sizes.
+%
+% You can find documentation about the pdfTeX application at:
+% http://www.tug.org/applications/pdftex
+
+
+
+
+
+% *** MATH PACKAGES ***
+%
+%\usepackage[cmex10]{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics. If using
+% it, be sure to load this package with the cmex10 option to ensure that
+% only type 1 fonts will utilized at all point sizes. Without this option,
+% it is possible that some math symbols, particularly those within
+% footnotes, will be rendered in bitmap form which will result in a
+% document that can not be IEEE Xplore compliant!
+%
+% Also, note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/amslatex/math/
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithms/
+% There is also a support site at:
+% http://algorithms.berlios.de/index.html
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithmicx/
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/tools/
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\ifCLASSOPTIONcompsoc
+%  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+%\else
+%  \usepackage[caption=false,font=footnotesize]{subfig}
+%\fi
+% subfig.sty, written by Steven Douglas Cochran, is the modeuion replacement
+% for subfigure.sty, the latter of which is no longer maintained and is
+% incompatible with some LaTeX packages including fixltx2e. However,
+% subfig.sty requires and automatically loads Axel Sommerfeldt's caption.sty
+% which will override IEEEtran.cls' handling of captions and this will result
+% in non-IEEE style figure/table captions. To prevent this problem, be sure
+% and invoke subfig.sty's caption=false package option (available since
+% subfig.sty version 1.3, 2005/06/28) as this is will preserve IEEEtran.cls
+% handling of captions.
+% Note that the Computer Society format requires a larger sans serif font
+% than the serif footnote size font used in traditional IEEE formatting
+% and thus the need to invoke different subfig.sty package options depending
+% on whether compsoc mode has been enabled.
+%
+% The latest version and documentation of subfig.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/subfig/
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure. The latest version and documentation can be found at:
+% http://www.ctan.org/tex-archive/macros/latex/base/
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., \begin{figure*}[!b] is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/sttools/
+% Do not use the stfloats baselinefloat ability as IEEE does not allow
+% \baselineskip to stretch. Authors submitting work to the IEEE should note
+% that IEEE rarely uses double column equations and that authors should try
+% to avoid such use. Do not be tempted to use the cuted.sty or midfloat.sty
+% packages (also by Sigitas Tolusis) as IEEE does not format its papers in
+% such ways.
+% Do not attempt to use stfloats with fixltx2e as they are incompatible.
+% Instead, use Morten Hogholm'a dblfloatfix which combines the features
+% of both fixltx2e and stfloats:
+%
+% \usepackage{dblfloatfix}
+% The latest version can be found at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/dblfloatfix/
+
+
+
+
+%\ifCLASSOPTIONcaptionsoff
+%  \usepackage[nomarkers]{endfloat}
+% \let\MYoriglatexcaption\caption
+% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
+%\fi
+% endfloat.sty was written by James Darrell McCauley, Jeff Goldberg and 
+% Axel Sommerfeldt. This package may be useful when used in conjunction with 
+% IEEEtran.cls'  captionsoff option. Some IEEE journals/societies require that
+% submissions have lists of figures/tables at the end of the paper and that
+% figures/tables without any captions are placed on a page by themselves at
+% the end of the document. If needed, the draftcls IEEEtran class option or
+% \CLASSINPUTbaselinestretch interface can be used to increase the line
+% spacing as well. Be sure and use the nomarkers option of endfloat to
+% prevent endfloat from marking where the figures would have been placed
+% in the text. The two hack lines of code above are a slight modification of
+% that suggested by in the endfloat docs (section 8.4.1) to ensure that
+% the full captions always appear in the list of figures/tables - even if
+% the user used the short optional argument of \caption[]{}.
+% IEEE papers do not typically make use of \caption[]'s optional argument,
+% so this should not be an issue. A similar trick can be used to disable
+% captions of packages such as subfig.sty that lack options to turn off
+% the subcaptions:
+% For subfig.sty:
+% \let\MYorigsubfloat\subfloat
+% \renewcommand{\subfloat}[2][\relax]{\MYorigsubfloat[]{#2}}
+% However, the above trick will not work if both optional arguments of
+% the \subfloat command are used. Furthermore, there needs to be a
+% description of each subfigure *somewhere* and endfloat does not add
+% subfigure captions to its list of figures. Thus, the best approach is to
+% avoid the use of subfigure captions (many IEEE journals avoid them anyway)
+% and instead reference/explain all the subfigures within the main caption.
+% The latest version of endfloat.sty and its documentation can obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/endfloat/
+%
+% The IEEEtran \ifCLASSOPTIONcaptionsoff conditional can also be used
+% later in the document, say, to conditionally put the References on a 
+% page by themselves.
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/url/
+% Basically, \url{my_url_here}.
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\graphicspath{{imgs/}{}}
+\begin{document}
+%
+% paper title
+% Titles are generally capitalized except for words such as a, an, and, as,
+% at, but, by, for, in, nor, of, on, or, the, to and up, which are usually
+% not capitalized unless they are the first or last word of the title.
+% Linebreaks \\ can be used within to get better formatting as desired.
+% Do not put math or special symbols in the title.
+\title{ELEN 4020 Lab 3: MapReduce and MrJob}
+%
+%
+% author names and IEEE memberships
+% note positions of commas and nonbreaking spaces ( ~ ) LaTeX will not break
+% a structure at a ~ so this keeps an author's name from being broken across
+% two lines.
+% use \thanks{} to gain access to the first footnote area
+% a separate \thanks must be used for each paragraph as LaTeX2e's \thanks
+% was not built to handle multiple paragraphs
+%
+%\onecolumn
+\author{Junaid Dawood (1094837), Xongile Nghatsane (1110680), Marissa van Wyngaardt (719804)}% <-this % stops a space
+
+
+
+\maketitle
+
+% As a general rule, do not put math, special symbols or citations
+% in the abstract or keywords.
+
+\begin{abstract}
+This report discusses typical use cases for the MapReduce programming model. This discussion is informed by the practical use of a MapReduce framework (MrJob) in Python. Specifically, this involves the implementation of three common MapReduce use cases: 1) word count, 2) K-most frequent analysis, and 3) inverted index. A detailed description of these implementations is given within this report as is the associated pseudocode.
+\end{abstract}
+
+\IEEEpeerreviewmaketitle
+
+\section{Introduction}
+The MapReduce programming model, as originally defined by Google, allows for massively distributed parallelisation of big data tasks  \cite{mapr}. MapReduce is simply a programming model, and as such, one may either implement the model or make use of existing frameworks which implement the model. The most commonly used model is Apache Hadoop, although there exist viable alternatives such as Pheonix++ (C++) and MrJob (Python) \cite{ApacheHa84:online,GitHubko90:online,mrjob:online}.
+
+Generally, big data tasks involve datasets which are far too large to be hosted on a single system. Thus, MapReduce makes use of a distributed file system (DFS) in order to share these large datasets as chunks, between nodes in a cluster.
+
+This report discusses the implementation of three common MapReduce solutions using the MrJob framework which implements the MapReduce model.
+
+\section{Background}
+MapReduce in its simplest form consists of two operations: Map and subsequently Reduce. The Map operation is supplied with a chunk of input data, from which it emits key-value pairs. There are typically several \textit{mappers} working in parallel, across many nodes each supplied with independent chunks of the same input dataset. In the vast majority of cases, it is the MapReduce framework which will automatically allocate chunks of input data to individual \textit{mappers}.
+
+
+After the Map phase completes, the emitted key-value pairs are sorted and shuffled, such that all values related with a single key are grouped together, typically achieved through the use of a (distributed) hash table. The Reduce operation then begins, taking in a key and a list of values as its argument and emitting a single key-value pair. Like the Map operation, there are generally several \textit{reducers} working in parallel, each with their own input data. Again, the supplying of input parameters is handled by the framework implementing the MapReduce model. The results emitted by all of the reducers are subsequently combined to form the final output of the MapReduce step.
+
+
+
+Both the Map and Reduce operations are defined by user code, so as to specify the processing that occurs prior to the emission of key-value pairs from the Map operations, and to specify the structure of said pairs. The rules for the combination of several values so as to emit a single pair from Reduce operations are also defined by user code.
+
+Generally, MapReduce tasks require more than a single step; as a result, most frameworks allow for the output of one MapReduce step (the collective output of its reducers) to act as the input for another MapReduce step. The MrJob framework allows the user to explicitly declare steps and their respective operations within classes which derive from the MrJob class.
+
+On the topic of operations, there often exists an intermediate operation between Map and Reduce called Combine. This operation is typically used to achieve some intermediate processing to improve performance.
+
+In addition, the MrJob framework allows for the definition of both pre and post operations for each of the three main operations, e.g. \textit{mapper\_init} and \textit{mapper\_final}. These are typically required for maintaining an auxiliary structure which exists separately from the main MapReduce operations.
+
+
+\section{Word Count}
+
+The word count algorithm analyses input data to generate an output table which lists the words present in the input alongside their respective numbers of occurrences. The implemented word count algorithm consists of two steps. The first deals with the removal of `stop' words from chunks of input data, and the second tallies the occurrences of words to present a list of words and the number of occurrences for each. The list of stop words (NLTK) is attached at the end of this document.
+
+The first step consists of a simple Map operation which emits lines numbers as keys and words as values from an input data chunk, if said words are not a part of a list of stop words. The reduce operation takes the list of words generated for each line-number and creates a single delimited string from the list of words; emitting the line-number and string as a key-value pair.
+
+The use of line-numbers is not necessary for this approach to work; all words could simply be mapped to a single key and the end result would still be correct. However, the use of a single key would mean that only a single mapper is used within the second Map operation.
+
+The second Map operation simply extracts words from a delimited list and emits a key-value pair wherein the key is the word and the value is 1. Thereafter, the word count portion employs an optional Combine operation which emits words and the sum of received 1s as a key-value pair. Each reducer then takes in a list of values for a given word and emits the word and the sum of the values as a key-value pair.
+
+
+\section{Top K Words}
+
+The Top K words algorithm returns a list of the top K most frequent words in a sample text. The algorithm incorporates a similar approach to the word count algorithm described above. Specifically, the algorithm alters the second Reduce operation of the word count algorithm and specifies an additional step which contains only a Reduce operation.
+
+The altered Reduce operation emits all \textit{(word,count)} pairs as tuple values, using the same key (NULL) for all. Thus the combined output of all reducers is a single key associated with a list of \textit{(word,count)} tuples. Of course, this devolution to a single key implies the use of a single reducer within the next step.
+
+The Reduce operation in the additional step then selects the top K words from the list of tuples based on the number of occurrences specified in the tuples. This is done using the built-in Python \textit{heapq.nlargest} function.
+
+In addition, the configuration of the Job class is altered so as to take an additional command line argument for the value of K. That is, the command line argument specifies the length of the output of the final Reduce operation.
+
+\section{Inverted Index}
+
+The inverted index algorithm takes in a text file input and produces an output list which consists of words and the line-numbers on which the words occur. The output is limited to the top 50 words, based on occurrences i.e. the number of lines on which words occur (considering only unique line-numbers).
+
+The implementation is made complex due to the general difficulty of obtaining line-numbers of input files within MrJob Map operations, unless said line-numbers are part of the text body itself. Ultimately, a custom input protocol was written to achieve this functionality. 
+
+Within MrJob, \textit{protocols} define the way in which data is packaged and passed to operations. The input protocol defines how data is passed to the first Map operation of a job. Protocols are required to define two methods \textit{read} and \textit{write}, the latter is not relevant to this discussion. The read method is supplied with a line of input data and is required to emit a key-value pair from the input line. For an input protocol, this defines the key-value pairs which are supplied to the first Map operation.
+
+The custom protocol class is based on the default \textit{RawValueProtocol} class, modifying the \textit{read} method to return a line-number of the input data, by making use of a static line-number counter within the custom protocol class. The line counter is incremented on each call made to the \textit{read} method. This approach works because MrJob automatically splits the input data by the newline character by default. Hence, each line sent to the read function is representative of one line of the input text.
+
+The listing below shows the implementation of the custom input protocol.
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+class CustomProtocol(object):  
+    lineCount=0#static line counter
+
+    def read(self, line):
+        decoded=line.decode('utf_8')
+        CustomProtocol.lineCount=CustomProtocol.lineCount+1
+        return (CustomProtocol.lineCount),decoded
+
+    def write(self, key, value):
+        return '%s\t%s' % (key, value)
+
+\end{lstlisting}
+
+    \caption{Listing of custom input protocol for line-number retrieval.}
+    \label{fig:my_label}
+\end{figure}
+
+
+
+Once this functionality is implemented, the remainder of the implementation is relatively simple, consisting of three steps. The first phase of `stop' word removal persists from the previous two algorithms. 
+
+The second step involves Map and Reduce operations. The Map operation takes in a delimited string as its value parameter and the line-number of the string as the key parameter. Mappers split their input string into a list of strings and emit key-value pairs wherein the key is the word and the value is the line-number.
+
+The reducer simply takes in the key-values pairs and determines the unique values present within the list of line-numbers for each key, creating a \textit{(word,line-numbers)} tuple. Ultimately, this operation emits a key-value pair wherein the key is the same for all words (NULL), and the value is the tuple mentioned above. 
+
+The final step consists of only a Reduce operation which selects the top 50 words based on occurrences (length of line-number list), using a similar approach to the top K words final Reduce operation.
+
+\subsection{Secondary Implementation}
+A second implementation for the inverted index is proposed: this implementation removes the need for the use of a custom input protocol. The method presupposes the inclusion of line-numbers within the input data as the first element of every line. Thus, this solution theoretically trades generality for performance.
+
+As a result, the overall process does not change drastically, only the Map operation of the first step is adjusted to use the line-number included in the input line as the emitted line-number key.
+\clearpage
+\section{Results and Discussion}
+
+This section presents the results of testing conducted using two input files. A short discussion is also presented, considering these results and the possible improvements which could be made to achieve better performance. The scripts were run on a system with the following specifications:
+
+\begin{itemize}
+    \item CPU: Intel i5 8350u (4C 8T) 3.6~GHz turbo frequency (256~kB L1, 1~MB L2, 6~MB L3) \cite{8350u}.
+    \item RAM: 16 GB \@ 2400~MHz
+\end{itemize}
+
+\subsection{Small Input File}
+
+The second implementation of the inverted index algorithm could not be used on this input file as the implementation is reliant on line-numbers being included in the file body, which is not the case with this input file.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+        width= 0.9\linewidth,
+            ybar,
+            enlargelimits=0.15,
+            legend style={at={(0.5,-0.15)},
+              anchor=north,legend columns=-1},
+            ylabel={Runtime (s)},
+            symbolic x coords={WC,KM10,KM20,II},
+            xtick=data,
+            nodes near coords,
+            nodes near coords align={vertical},
+            ]
+        \addplot coordinates {(WC,0.9204838275909424) (KM10,1.168487548828125) (KM20,1.0658681392669678) (II,0.8545575141906738)};
+        \end{axis}
+        \end{tikzpicture}
+    \caption{Performance results using small text file.}
+    \label{fig:my_label}
+\end{figure}
+
+The following listings show the results of running the algorithms used with this test input. The results of the word count and inverted index algorithms are truncated for brevity. As stated previously, the inverted index implementation considers only unique line-numbers for its ordering process.
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+    "1775"  2
+    "1776"  4
+    "1777"  1
+    "1778"  2
+    "1779"  1
+    "1781"  1
+    "300"   1
+    "5000"  1
+    "abundant"      1
+    "accustomed"    1
+    "acted" 1
+    "action"        1
+    "adams" 3
+    \end{lstlisting}
+    \caption{Truncated results for word count of small file.}
+    \label{fig:my_label}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+"Top10" [["congress", 12], ["tories", 10], ["government", 9], ["state", 9], ["people", 8], ["british", 7], ["constitutions", 7], ["loyalists", 7], ["men", 7], ["patriot", 7]]
+
+"Top20" [["congress", 12], ["tories", 10], ["government", 9], ["state", 9], ["people", 8], ["british", 7], ["constitutions", 7], ["loyalists", 7], ["men", 7], ["patriot", 7], ["revolution", 7], ["army", 6], ["great", 6], ["jersey", 6], ["patriots", 6], ["states", 6], ["american", 5], ["leaders", 5], ["massachusetts", 5], ["provincial", 5]]
+
+
+    \end{lstlisting}
+    \caption{Results for K most frequent analysis of small file.}
+    \label{fig:my_label}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+"Top50" [["congress", "{96, 198, 7, 75, 77, 175, 145, 17, 179, 81, 88, 155}"], ["government", "{128, 90, 9, 42, 16, 23, 152, 58, 93}"], ["state", "{101, 70, 12, 46, 78, 55, 88, 89, 29}"], ["tories", "{162, 195, 132, 106, 171, 143, 116, 217, 123}"], ["people", "{140, 13, 47, 176, 147, 148, 151, 158}"], ["constitutions", "{38, 102, 12, 46, 19, 55, 29}"], ["loyalists", "{166, 167, 143, 116, 119, 153, 157}"], ["men", "{98, 71, 44, 109, 178, 216, 187}"], ["patriot", "{138, 108, 15, 181, 182, 215, 61}"]
+    \end{lstlisting}
+    \caption{Truncated results for inverted index analysis of small file.}
+    \label{fig:my_label}
+\end{figure}
+
+
+\subsection{Large File}
+
+This input file makes use of line-numbers at the start of each line, hence the secondary version of the inverted index algorithm can be used here, as indicate below (AII).
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+        width= 0.85\linewidth,
+            ybar,
+            enlargelimits=0.15,
+            legend style={at={(0.5,-0.15)},
+              anchor=north,legend columns=-1},
+            ylabel={Runtime (s)},
+            symbolic x coords={WC,KM10,KM20,II,AII},
+            xtick=data,
+            nodes near coords,
+            nodes near coords align={vertical},
+            ]
+        \addplot coordinates {(WC,5.829683542251587) (KM10,6.281290292739868) (KM20,6.266709089279175) (II,5.171406269073486) (AII, 5.106261491775513)};
+        \end{axis}
+        \end{tikzpicture}
+    \caption{Performance results using large text file.}
+    \label{fig:my_label}
+\end{figure}
+
+\clearpage
+It is not practical to list most of the results for this test, due to the size of the output lists. The results for the top K most frequent top 10 and 20 words are shown below, as the size of the output is manageable due to its fixed length.
+
+
+\begin{figure}[H]
+    \centering
+    \begin{lstlisting}
+"Top10" [["state", 695], ["good", 672], ["man", 610], ["true", 585], ["'", 526], ["men", 431], ["life", 398], ["justice", 359], ["soul", 341], ["nature", 336]]
+
+"Top20" [["state", 695], ["good", 672], ["man", 610], ["true", 585], ["'", 526], ["men", 431], ["life", 398], ["justice", 359], ["soul", 341], ["nature", 336], ["plato", 326], ["knowledge", 292], ["replied", 273], ["truth", 263], ["great", 258], ["things", 256], ["evil", 233], ["mind", 229], ["time", 217], ["reason", 200]]
+\end{lstlisting}
+
+    \caption{Results of K most frequent analysis of large text file.}
+\end{figure}
+
+
+
+
+\subsection{Discussion}
+
+Based on the performance results obtained when using the large text file as an input, it does not appear that there is a significant difference between the two approaches proposed for the inverted index algorithm. As a result, the first approach may be preferred for the generality of its application. That said, it is unclear whether or not it is safe to use this approach when running on a cluster. Moreover, the approach used is not compatible with multiple input files due to the implementation of the custom protocol described earlier. That is, there is seemingly no way in which to reset the line count when a new file begins.
+
+Another point of discussion is the use of a standalone step for the purpose of removing stop words. It is thought that this approach will have minimal effect on performance, considering there is no devolution to a single reducer and that the removal of stop words would have to be done at some stage in any case.
+
+It is interesting to note the large difference in performance between the top K algorithm and the two inverted index approaches. Both of these approaches devolve to a single reducer in their final step, and both approaches make use of the same built-in sorter and selector. Despite this, the inverted index algorithms perform better in the testing described earlier.
+
+It was identified in selective testing that the use of an intermediate Combine operation hindered the performance of both the word count algorithm and the top K most frequent algorithm, as shown in the adjacent graph (-C indicates the use of a Combine operation). This is particularly interesting considering that most tutorials suggest the use of the Combine operation.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+        width= 0.85\linewidth,
+            ybar,
+            enlargelimits=0.15,
+            legend style={at={(0.5,-0.15)},
+              anchor=north,legend columns=-1},
+            ylabel={Runtime (s)},
+            symbolic x coords={WC,WC-C,KM20,KM20-C},
+            xtick=data,
+            nodes near coords,
+            nodes near coords align={vertical},
+            ]
+        \addplot coordinates {(WC-C,5.815450191497803) (WC,4.91533088684082) (KM20-C,6.218282461166382) (KM20,5.085993766784668) };
+        \end{axis}
+        \end{tikzpicture}
+    \caption{Performance comparison considering effect of Combine step.}
+    \label{fig:my_label}
+\end{figure}
+
+
+
+\section{Conclusion}
+A simple explanation of the MapReduce programming model has been presented. This explanation was informed by a practical implementation of MapReduce solutions, using MrJob in Python. The implemented algorithms achieve their respective goals, but could be improved in future work through reducing the number of steps involved; simplifying multi-step operations to a single step. Additionally, a more complex analysis of the use of a Combine operation should be attempted to evaluate its efficiency, and the input size threshold after which it yields superior performance.
+
+\printbibliography
+
+\clearpage
+
+\onecolumn
+
+\pagenumbering{gobble}
+
+
+\section*{Pseudocode}
+\section*{WordCount}
+
+\begin{algorithm}
+\caption{WordCount}\label{euclid}
+\begin{algorithmic}[1]
+
+
+
+
+\Procedure{StopWordMap}{key,value}
+
+\State $\textit{lineNo} \gets \textit{line number - Key} $
+\State $\textit{line} \gets \textit{input line - Value }$
+
+
+
+\State wordList=line.split()
+\For{each word in wordList}
+\If{word.lower() not in StopWords}
+\State emit Tuple (key=lineNo, value=word)
+\EndIf
+\EndFor
+\EndProcedure
+
+
+\Procedure{StopWordReduce}{key,values}
+\State $\textit{lineNo} \gets \textit{line number - Key} $
+\State $\textit{words} \gets \textit{word - Values}$
+\State wordList=toDelimitedList(words)
+\State emit Tuple (key=lineNo, value=wordList)
+\EndProcedure
+
+\Procedure{WordCountMap}{key,value}
+\State $\textit{lineNo} \gets \textit{line number - Key} $
+\State $\textit{wordList} \gets \textit{word - Value}$
+
+\State words=wordList.split()
+\For{each word in words}
+\State emit Tuple (key=word, value=1)
+\EndFor
+\EndProcedure
+
+\Procedure{WordCountCombine}{key,value}
+\State $\textit{word} \gets \textit{word - Key} $
+\State $\textit{ones} \gets \textit{ones - Value}$
+
+\State totalCount=sum(ones)
+\State emit Tuple (key=word, value=totalCount)
+\EndProcedure
+
+
+\Procedure{WordCountReduce}{key,values}
+\State $\textit{word} \gets \textit{word - Key} $
+\State $\textit{counts} \gets \textit{counts - Values}$
+
+\State totalCount=sum(counts)
+\State emit Tuple (key=word, value=totalCount)
+
+\EndProcedure
+
+
+\end{algorithmic}
+\end{algorithm}
+\clearpage
+\section*{K Most Frequent Words}
+
+\begin{algorithm}
+\caption{KMostFrequent}\label{euclid}
+\begin{algorithmic}[1]
+
+
+
+
+\Procedure{StopWordMap}{key,value}
+
+\State $\textit{lineNo} \gets \textit{line number - Key} $
+\State $\textit{line} \gets \textit{input line - Value }$
+
+
+
+\State wordList=line.split()
+\For{each word in wordList}
+\If{word.lower() not in StopWords}
+\State emit Tuple (key=lineNo, value=word)
+\EndIf
+\EndFor
+\EndProcedure
+
+
+\Procedure{StopWordReduce}{key,values}
+\State $\textit{lineNo} \gets \textit{line number - Key} $
+\State $\textit{words} \gets \textit{word - Values}$
+\State wordList=toDelimitedList(words)
+\State emit Tuple (key=lineNo, value=wordList)
+\EndProcedure
+
+\Procedure{WordCountMap}{key,value}
+\State $\textit{lineNo} \gets \textit{line number - Key} $
+\State $\textit{wordList} \gets \textit{word - Value}$
+
+\State words=wordList.split()
+\For{each word in words}
+\State emit Tuple (key=word, value=1)
+\EndFor
+\EndProcedure
+
+\Procedure{WordCountCombine}{key,value}
+\State $\textit{word} \gets \textit{word - Key} $
+\State $\textit{ones} \gets \textit{ones - Value}$
+
+\State totalCount=sum(ones)
+\State emit Tuple (key=word, value=totalCount)
+\EndProcedure
+
+
+\Procedure{WordCountReduce}{key,values}
+\State $\textit{word} \gets \textit{word - Key} $
+\State $\textit{counts} \gets \textit{counts - Values}$
+
+\State totalCount=sum(counts)
+\State emit Tuple (key=None, value= Tuple(key=word,value=totalCount))
+\EndProcedure
+
+
+
+
+
+
+\Procedure{KMostReduce}{key,values}
+\State $\textit{nullKey} \gets \textit{nullKey - Key} $
+\State $\textit{tuples} \gets \textit{word-count-tuples - Values}$
+
+\State mostFrequent = KMost(tuples).byWordCount()
+
+\State emit Tuple (key=`TOP K', value=MostFrequent)
+
+\EndProcedure
+
+\end{algorithmic}
+\end{algorithm}
+\clearpage
+\section*{Inverted Index}
+
+\begin{algorithm}
+\caption{InvertedIndex}\label{euclid}
+\begin{algorithmic}[1]
+
+
+
+
+\Procedure{StopWordMap}{key,value}
+
+\State $\textit{lineNo} \gets \textit{line number - Key} $
+\State $\textit{line} \gets \textit{input line - Value }$
+
+
+
+\State wordList=line.split()
+\For{each word in wordList}
+\If{word.lower() not in StopWords}
+\State emit Tuple (key=lineNo, value=word)
+\EndIf
+\EndFor
+\EndProcedure
+
+
+
+\Procedure{StopWordReduce}{key,values}
+\State $\textit{lineNo} \gets \textit{line number - Key} $
+\State $\textit{words} \gets \textit{word - Values}$
+\State wordList=toDelimitedList(words)
+\State emit Tuple (key=lineNo, value=wordList)
+\EndProcedure
+
+\Procedure{LineNumMap}{key,value}
+\State $\textit{lineNo} \gets \textit{line number - Key} $
+\State $\textit{wordList} \gets \textit{word - Value}$
+
+\State words=wordList.split()
+\For{each word in words}
+\State emit Tuple (key=word, value=lineNo)
+\EndFor
+\EndProcedure
+
+
+\Procedure{LineNumReduce}{key,values}
+\State $\textit{word} \gets \textit{word - Key} $
+\State $\textit{lines} \gets \textit{lines - Values}$
+
+\State uniqueLines=Unique(lines)
+\State emit Tuple (key=None, value= Tuple(key=word, value= toDelimitedString(uniqueLines)))
+
+\EndProcedure
+
+
+\Procedure{Top50Reduce}{key,values}
+\State $\textit{None} \gets \textit{None - Key} $
+\State $\textit{tuples} \gets \textit{tuples - Values}$
+
+\State mostFrequent = 50Most(tuples).byOccurrences()
+\State emit Tuple (key=`TOP 50',mostFrequent)
+
+\EndProcedure
+
+
+\end{algorithmic}
+\end{algorithm}
+
+
+\clearpage
+
+\section*{Less General Inverted Index}
+
+\begin{algorithm}
+\caption{InvertedIndex}\label{euclid}
+\begin{algorithmic}[1]
+
+
+
+
+\Procedure{StopWordMap}{key,value}
+
+\State $\textit{key} \gets \textit{Null - Key} $
+\State $\textit{line} \gets \textit{input line - Value }$
+
+
+
+\State wordList=line.split()
+\For{each word in wordList}
+\If{word.lower() not in StopWords}
+\State lineNo=wordList.first().toInt()
+\State emit Tuple (key=lineNo, value=word)
+\EndIf
+\EndFor
+\EndProcedure
+
+
+\Procedure{StopWordReduce}{key,values}
+\State $\textit{lineNo} \gets \textit{line number - Key} $
+\State $\textit{words} \gets \textit{word - Values}$
+\State wordList=toDelimitedList(words)
+\State emit Tuple (key=lineNo, value=wordList)
+\EndProcedure
+
+\Procedure{LineNumMap}{key,value}
+\State $\textit{lineNo} \gets \textit{line number - Key} $
+\State $\textit{wordList} \gets \textit{word - Value}$
+
+\State words=wordList.split()
+\For{each word in words}
+\State emit Tuple (key=word, value=lineNo)
+\EndFor
+\EndProcedure
+
+
+\Procedure{LineNumReduce}{key,values}
+\State $\textit{word} \gets \textit{word - Key} $
+\State $\textit{lines} \gets \textit{lines - Values}$
+
+\State uniqueLines=Unique(lines)
+\State emit Tuple (key=None, value= Tuple(key=word, value= toDelimitedString(uniqueLines)))
+
+\EndProcedure
+
+
+\Procedure{Top50Reduce}{key,values}
+\State $\textit{None} \gets \textit{None - Key} $
+\State $\textit{tuples} \gets \textit{tuples - Values}$
+
+\State mostFrequent = 50Most(tuples).byOccurrences()
+\State emit Tuple (key=`TOP 50',mostFrequent)
+
+\EndProcedure
+
+\end{algorithmic}
+\end{algorithm}
+
+
+\clearpage
+
+\section*{Stop Words}
+
+\lstset{
+stringstyle=\color{black},
+keywordstyle=\color{black}
+}
+
+\begin{lstlisting}
+a,about,above,after,again,against,ain,all,am,an,and,any,are,aren,aren't,as,at,be,because,been,before,being,below,between,both,but,by,can,couldn,couldn't,d,did,didn,didn't,do,does,doesn,doesn't,doing,don,don't,down,during,each,few,for,from,further,had,hadn,hadn't,has,hasn,hasn't,have,haven,haven't,having,he,her,here,hers,herself,him,himself,his,how,i,if,in,into,is,isn,isn't,it,it's,its,itself,just,ll,m,ma,me,mightn,mightn't,more,most,mustn,mustn't,my,myself,needn,needn't,no,nor,not,now,o,of,off,on,once,only,or,other,our,ours,ourselves,out,over,own,re,s,same,shan,shan't,she,she's,should,should've,shouldn,shouldn't,so,some,such,t,than,that,that'll,the,their,theirs,them,themselves,then,there,these,they,this,those,through,to,too,under,until,up,ve,very,was,wasn,wasn't,we,were,weren,weren't,what,when,where,which,while,who,whom,why,will,with,won,won't,wouldn,wouldn't,y,you,you'd,you'll,you're,you've,your,yours,yourself,yourselves,could,he'd,he'll,he's,here's,how's,i'd,i'll,i'm,i've,let's,ought,she'd,she'll,that's,there's,they'd,they'll,they're,they've,we'd,we'll,we're,we've,what's,when's,where's,who's,why's,would,able,abst,accordance,according,accordingly,across,act,actually,added,adj,affected,affecting,affects,afterwards,ah,almost,alone,along,already,also,although,always,among,amongst,announce,another,anybody,anyhow,anymore,anyone,anything,anyway,anyways,anywhere,apparently,approximately,arent,arise,around,aside,ask,asking,auth,available,away,awfully,b,back,became,become,becomes,becoming,beforehand,begin,beginning,beginnings,begins,behind,believe,beside,besides,beyond,biol,brief,briefly,c,ca,came,cannot,can't,cause,causes,certain,certainly,co,com,come,comes,contain,containing,contains,couldnt,date,different,done,downwards,due,e,ed,edu,effect,eg,eight,eighty,either,else,elsewhere,end,ending,enough,especially,et,etc,even,ever,every,everybody,everyone,everything,everywhere,ex,except,f,far,ff,fifth,first,five,fix,followed,following,follows,former,formerly,forth,found,four,furthermore,g,gave,get,gets,getting,give,given,gives,giving,go,goes,gone,got,gotten,h,happens,hardly,hed,hence,hereafter,hereby,herein,heres,hereupon,hes,hi,hid,hither,home,howbeit,however,hundred,id,ie,im,immediate,immediately,importance,important,inc,indeed,index,information,instead,invention,inward,itd,it'll,j,k,keep,keeps,kept,kg,km,know,known,knows,l,largely,last,lately,later,latter,latterly,least,less,lest,let,lets,like,liked,likely,line,little,'ll,look,looking,looks,ltd,made,mainly,make,makes,many,may,maybe,mean,means,meantime,meanwhile,merely,mg,might,million,miss,ml,moreover,mostly,mr,mrs,much,mug,must,n,na,name,namely,nay,nd,near,nearly,necessarily,necessary,need,needs,neither,never,nevertheless,new,next,nine,ninety,nobody,non,none,nonetheless,noone,normally,nos,noted,nothing,nowhere,obtain,obtained,obviously,often,oh,ok,okay,old,omitted,one,ones,onto,ord,others,otherwise,outside,overall,owing,p,page,pages,part,particular,particularly,past,per,perhaps,placed,please,plus,poorly,possible,possibly,potentially,pp,predominantly,present,previously,primarily,probably,promptly,proud,provides,put,q,que,quickly,quite,qv,r,ran,rather,rd,readily,really,recent,recently,ref,refs,regarding,regardless,regards,related,relatively,research,respectively,resulted,resulting,results,right,run,said,saw,say,saying,says,sec,section,see,seeing,seem,seemed,seeming,seems,seen,self,selves,sent,seven,several,shall,shed,shes,show,showed,shown,showns,shows,significant,significantly,similar,similarly,since,six,slightly,somebody,somehow,someone,somethan,something,sometime,sometimes,somewhat,somewhere,soon,sorry,specifically,specified,specify,specifying,still,stop,strongly,sub,substantially,successfully,sufficiently,suggest,sup,sure,take,taken,taking,tell,tends,th,thank,thanks,thanx,thats,that've,thence,thereafter,thereby,thered,therefore,therein,there'll,thereof,therere,theres,thereto,thereupon,there've,theyd,theyre,think,thou,though,thoughh,thousand,throug,throughout,thru,thus,til,tip,together,took,toward,towards,tried,tries,truly,try,trying,ts,twice,two,u,un,unfortunately,unless,unlike,unlikely,unto,upon,ups,us,use,used,useful,usefully,usefulness,uses,using,usually,v,value,various,'ve,via,viz,vol,vols,vs,w,want,wants,wasnt,way,wed,welcome,went,werent,whatever,what'll,whats,whence,whenever,whereafter,whereas,whereby,wherein,wheres,whereupon,wherever,whether,whim,whither,whod,whoever,whole,who'll,whomever,whos,whose,widely,willing,wish,within,without,wont,words,world,wouldnt,www,x,yes,yet,youd,youre,z,zero,a's,ain't,allow,allows,apart,appear,appreciate,appropriate,associated,best,better,c'mon,c's,cant,changes,clearly,concerning,consequently,consider,considering,corresponding,course,currently,definitely,described,despite,entirely,exactly,example,going,greetings,hello,help,hopefully,ignored,inasmuch,indicate,indicated,indicates,inner,insofar,it'd,keep,keeps,novel,presumably,reasonably,second,secondly,sensible,serious,seriously,sure,t's,third,thorough,thoroughly,three,well,wonder
+\end{lstlisting}
+
+
+\newrefsection
+\pagenumbering{arabic}
+\onecolumn 
+%\setlength{\parskip}{0.6em}
+
+
+
+
+\ifCLASSOPTIONcaptionsoff
+  \newpage
+\fi
+
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The triggered command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+%\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+%\bibliography{IEEEabrv,../bib/paper}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+%\begin{thebibliography}{1}
+
+%\bibitem{IEEEhowto:kopka}
+
+% H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%   0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+
+%\end{thebibliography}
+
+% biography section
+% 
+% If you have an EPS/PDF photo (graphicx package needed) extra braces are
+% needed around the contents of the optional argument to biography to prevent
+% the LaTeX parser from getting confused when it sees the complicated
+% \includegraphics command within an optional argument. (You could create
+% your own custom macro containing the \includegraphics command to make things
+% simpler here.)
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
+% or if you just want to reserve a space for a photo:
+
+% \begin{IEEEbiography}
+% Biography text here.
+% \end{IEEEbiography}
+
+% if you will not have a photo at all:
+% \begin{IEEEbiographynophoto}{John Doe}
+% Biography text here.
+% \end{IEEEbiographynophoto}
+
+% insert where needed to balance the two columns on the last page with
+% biographies
+%\newpage
+
+% \begin{IEEEbiographynophoto}{Jane Doe}
+% Biography text here.
+% \end{IEEEbiographynophoto}
+
+% You can push biographies down or up by placing
+% a \vfill before or after them. The appropriate
+% use of \vfill depends on what kind of text is
+% on the last page and whether or not the columns
+% are being equalized.
+
+%\vfill
+
+% Can be used to pull up biographies so that the bottom of the last one
+% is flush with the other column.
+%\enlargethispage{-5in}
+
+
+
+% that's all folks
+\end{document}

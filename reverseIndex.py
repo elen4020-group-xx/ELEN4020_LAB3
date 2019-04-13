@@ -13,7 +13,7 @@ WORD_RE = re.compile(r"[\w']+")
 class ReverseIndex(MRJob):
     INPUT_PROTOCOL=CustomProtocol
 
-    def steps(self):##Multi-step 1) discard stop words and recombine. 2)map words to line numbers
+    def steps(self):##Multi-step 1) discard stop words and recombine. 2)map words to line numbers 3) select most frequent
         return [
             MRStep(mapper=self.mapper_discard_stop, reducer=self.reducer_discard_stop),
             MRStep(mapper=self.mapper,
