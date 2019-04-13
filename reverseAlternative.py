@@ -4,15 +4,11 @@ import re
 import os
 import time
 import heapq
-from utility import stopWords,CustomProtocol
+from utility import stopWords
 WORD_RE = re.compile(r"[\w']+")
 
 
-
-
 class ReverseIndex(MRJob):
-    INPUT_PROTOCOL=CustomProtocol
-
     def steps(self):##Multi-step 1) discard stop words and recombine. 2)map words to line numbers
         return [
             MRStep(mapper=self.mapper_discard_stop, reducer=self.reducer_discard_stop),
@@ -21,10 +17,11 @@ class ReverseIndex(MRJob):
             MRStep(reducer=self.topKReducer)
         ]
 
-    def mapper_discard_stop(self,key, line):
-        for word in WORD_RE.findall(line):
+    def mapper_discard_stop(self,_, line):
+        wordList = WORD_RE.findall(line)
+        for word in wordList:
             if(word.lower() not in stopWords):
-                yield key, word.lower()
+                yield int(wordList[0]), word.lower()
 
 
     def reducer_discard_stop(self, key, words):

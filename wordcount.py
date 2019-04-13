@@ -1,15 +1,17 @@
 from mrjob.job import MRJob
 from mrjob.step import MRStep
-from reverseIndex import CustomProtocol
 import re
+from utility import stopWords,CustomProtocol
 import os
 import time
 
 WORD_RE = re.compile(r"[\w']+")
 
 
+
+
 class MRWordFreqCount(MRJob):
-    #INPUT_PROTOCOL=CustomProtocol
+    INPUT_PROTOCOL=CustomProtocol
 
 
     def steps(self):
@@ -22,8 +24,8 @@ class MRWordFreqCount(MRJob):
         ]
 
     def mapper_discard_stop(self, key, line):
-        stopWords=['to','at','the','we','am','in']
-        for word in WORD_RE.findall(line):
+        wordList = WORD_RE.findall(line)
+        for word in wordList:
             if(word.lower() not in stopWords):
                 yield key, word.lower()
 

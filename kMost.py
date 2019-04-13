@@ -4,6 +4,7 @@ from reverseIndex import CustomProtocol
 import re
 import time
 import heapq
+from utility import stopWords,CustomProtocol
 import os
 WORD_RE = re.compile(r"[\w']+")
 
@@ -21,8 +22,8 @@ class KMost(MRJob):
         ]
 
     def mapper_discard_stop(self, key, line):
-        stopWords=['to','at','the','we','am','in']
-        for word in WORD_RE.findall(line):
+        wordList = WORD_RE.findall(line)
+        for word in wordList:
             if(word.lower() not in stopWords):
                 yield key, word.lower()
 
